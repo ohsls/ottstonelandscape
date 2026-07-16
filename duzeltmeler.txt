@@ -1,0 +1,87 @@
+menu bar kaydirinca normal boyutta degilde hafif incelmeli normale oranla , mobile de menu bara tiklayinca x e basmadan kapanmiyor yada sayfa hareket etmiyor (bence illa x degilde herhangibi yere tiklayinca menu bar kapanmali, )
+,
+mobile de menubarin ustunde " 4 slots left" yaziyor normalde ⚡ 4 project slots remaining for 2026 season — Claim yours → (bence bu kisma gerek yok),
+yazilan yazilar , ve seo, ottawadan birisi bizim yaptigimizla alakli isleri aratinca ilk cikmak istiyorum , sayfayi ona gore ,
+renkler,
+★★★★★
+
+5-Star Rated(sadece bu 5 star kismi cunku gercek reviewimiz yok yalan olsun istemiyorum) ve What Ottawa Homeowners Say kisminda (musterilerin yorumundan ziyade suana kadar tamamiyle musteri mumnuniyetiyle bitirdik , zaten musteri onaylamadan projeyi bitirmiyoruz tarzi olsa daha dogru olur , yalandan hoslanmiyorum), 
+ve simdilik facebook instagram yok , onlari gizliyelim belki ilerde kullanicam. ,
+whatsapp call herkesde olmuyabilir o yuzden normal call ya da mail secenegide olmali yada 3 u ayni anda (pricelist kisminda ) ( bu contact sayfa zaten cok iyi , orda yine 📱 Message Us on WhatsApp kismi var, dedigim gibi herkesde whatsapp olmuyabilir. mesela oyle message us , Request Free Assessment e tiklayinca whatsapp , normal message , yada normal call ya da mail etc etc, hangisi nereye uygunsa o secenekler ciksa musteri ona tiklasa daha iyi olabilir. ), 
+
+bu menu barda musteri ana sayfaya gitmek icin "StoneEdge Ottawa
+Engineered for Ottawa. Built to Last Generations." kismina tiklamasi gerektigini bilmiyebilir , anasayfa gibi yazi olsa iyi mi olur yoksa herkes bilir mi ve mobilde ekranin ustune tiklayinca sayfa en uste gidicek di mi ek bisey yapmamiza gerek yok di mi
+-----
+
+
+
+I'm continuing the StoneEdge Ottawa website build. The attached MD file is the full blueprint — READ IT COMPLETELY before making any changes (especially the BUILD PROGRESS TRACKER showing all 10 sessions completed, the file tree in Section 4, and all Session notes).
+
+This is Session 11. Make these improvements in order. Follow ALL existing Critical Rules from Section 10 (no overwrites, no duplicates, import don't copy, siteConfig for brand text, etc.)
+
+### CHANGE 1 — Add "email" field to ContactForm
+File: `components/ui/ContactForm.tsx`
+Currently the form collects: name, phone, neighbourhood, projectType, budgetRange, contactMethod, timeline, message, referralSource — but NO email field.
+- Add an `email` field (type="email", optional, not required) right AFTER the phone field.
+- Add it to the FormData interface.
+- The form already POSTs JSON to `/api/contact` — the new field will be included automatically via `JSON.stringify(formData)`.
+
+File: `app/api/contact/route.ts`
+- Add 'Email' to the `buildEmailHtml` fields array so the email shows up in notification emails.
+- Do NOT add email to the `required` array — it stays optional.
+
+### CHANGE 2 — Add "Text Us" (SMS) as a 4th contact option
+File: `components/ui/ContactOptions.tsx`
+Currently has 3 buttons: WhatsApp, Call Us, Email.
+- Add a 4th button: "Text Us" — using `sms:` URI scheme with siteConfig phone (same number).
+- Use the `MessageSquare` icon from lucide-react.
+- Place it between "Call Us" and "Email" so the order is: WhatsApp | Call Us | Text Us | Email.
+- Same styling as the existing secondary buttons (border style like Call and Email).
+
+### CHANGE 3 — Photo/Video upload for quote requests
+File: `components/ui/ContactForm.tsx`
+Add a file upload section BELOW the message textarea (above referralSource in full mode, above submit button in compact mode):
+- Label: "Upload Photos or Video of Your Property (optional)"
+- Accept: image/*, video/* 
+- Multiple files allowed (up to 5 files, max 10MB each)
+- Show file names + small preview thumbnails for images after selection
+- Show a remove button (X) next to each selected file
+- Client-side validation: max 5 files, max 10MB per file, show error if exceeded
+- The files should NOT be sent to the existing `/api/contact` endpoint (it only handles JSON). Instead:
+  - Use FormData to POST to a NEW endpoint `/api/contact/upload`
+  - The form should first POST the text data to `/api/contact` (existing behavior), then if files are selected, POST files to `/api/contact/upload` with the lead name for reference
+  - If no files selected, skip the upload step entirely (current behavior unchanged)
+
+File: `app/api/contact/upload/route.ts` (NEW FILE)
+- Accept multipart/form-data POST
+- Validate: max 5 files, max 10MB each, only image/* and video/* MIME types
+- Save files to a local `/uploads/` directory (create if not exists) with timestamped filenames to prevent collisions
+- Sanitize filenames (strip special characters, keep extension)
+- Return JSON: { success: true, files: string[] } with saved filenames
+- On error: return 400/500 with error message
+- Security: validate MIME types server-side (don't trust client), reject anything that isn't image or video
+
+### CHANGE 4 — API security fix (HTML injection)
+File: `app/api/contact/route.ts`
+The `buildEmailHtml` function currently injects `body.name`, `body.phone`, etc. directly into HTML with no escaping. Fix this:
+- Create a `escapeHtml(str: string): string` helper that escapes `&`, `<`, `>`, `"`, `'`
+- Wrap every `value` in the fields array with `escapeHtml()` before inserting into the HTML template
+- Also wrap the email subject line values: `body.name`, `body.projectType`, `body.neighbourhood`
+
+### CHANGE 5 — Add rate limiting to contact API
+File: `app/api/contact/route.ts`
+- Add simple in-memory rate limiting: max 5 submissions per IP per 15 minutes
+- Use a Map<string, { count: number, resetAt: number }> stored in module scope
+- Check IP from `req.headers.get('x-forwarded-for')` or `req.ip` or fallback to 'unknown'
+- Return 429 Too Many Requests if exceeded
+- Clean up expired entries on each request to prevent memory leak
+
+### CONSTRAINTS — Read carefully:
+- Do NOT modify, delete, or overwrite any file not listed above.
+- Do NOT change any existing working functionality (navbar, lightbox, hero, portfolio, etc.)
+- Do NOT restructure the project or rename files.
+- ContactForm must keep `'use client'` as line 1.
+- ContactForm must still work with both `compact={true}` and `compact={false}` props.
+- Keep the same styling patterns: rounded-lg borders, brand-green focus rings, min-h-[44px] touch targets, text-base font size on inputs.
+- Update the WEBSITE_BLUEPRINT MD file at the end: add a "Session 11" entry to the BUILD PROGRESS TRACKER table and document all changes (files modified, files created, verification results).
+- After all changes, run `npx tsc --noEmit` to confirm zero TypeScript errors.

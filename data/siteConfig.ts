@@ -1,0 +1,20 @@
+export const siteConfig = {
+  name:           'OttStone Landscape',
+  tagline:        'Engineered for Ottawa. Built to Last Generations.',
+  phone:          '(613) 981-8884',
+  email:          'info@ottstonelandscape.ca',
+  address:        'Ottawa, Ontario',
+  instagram:      'https://instagram.com/ottstonelandscape',
+  facebook:       'https://facebook.com/ottstonelandscape',
+  yearFounded:    2020,
+  projectsDone:   350,
+  seasonCap:      12,
+  slotsLeft:      4,
+  partner1: { name: 'Dim', role: 'Master Craftsman — 20+ Years', image: 'https://res.cloudinary.com/lbsy6tsd/image/upload/q_auto,f_auto,w_600/v1784073577/dim_mgqnkg.jpg' },
+  nav: [
+    { label: 'Services',  href: '/services'  },
+    { label: 'Portfolio', href: '/portfolio' },
+    { label: 'About',     href: '/about'     },
+    { label: 'Contact',   href: '/contact'   },
+  ],
+}
