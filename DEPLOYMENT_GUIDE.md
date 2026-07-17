@@ -109,7 +109,7 @@ Vercel is where your website actually runs. It's free and automatic.
 
 ### 3b. Import Your Project
 1. On the Vercel dashboard, click **"Add New..." → "Project"**
-2. Find `stoneedge-ottawa` in your GitHub repo list → click **"Import"**
+2. Find `ottstonelandscape` in your GitHub repo list → click **"Import"**
 3. Vercel will auto-detect it's a Next.js project
 4. **Before clicking Deploy**, add your environment variables:
    - Click **"Environment Variables"**
@@ -119,21 +119,21 @@ Vercel is where your website actually runs. It's free and automatic.
    |---|---|
    | `RESEND_API_KEY` | `re_your_real_key` (get this from Step 5) |
    | `NEXT_PUBLIC_WHATSAPP_PHONE` | `1613XXXXXXX` (your real WhatsApp number, no spaces, no dashes) |
-   | `NEXT_PUBLIC_SITE_URL` | `https://stoneedgeottawa.ca` (your real domain) |
+   | `NEXT_PUBLIC_SITE_URL` | `https://ottstonelandscape.ca` (your real domain) |
 
 5. Click **"Deploy"**
-6. Wait ~60 seconds. Vercel will build your site and give you a URL like `stoneedge-ottawa.vercel.app`
+6. Wait ~60 seconds. Vercel will build your site and give you a URL like `ottstonelandscape.vercel.app`
 7. Visit it — your website is live!
 
 ---
 
 ## Step 4: Connect Your Domain to Vercel
 
-Right now your site is at `stoneedge-ottawa.vercel.app`. Let's connect your real domain.
+Right now your site is at `ottstonelandscape.vercel.app`. Let's connect your real domain.
 
 ### 4a. Add Domain in Vercel
 1. In your Vercel project dashboard → **"Settings" → "Domains"**
-2. Type your domain: `stoneedgeottawa.ca`
+2. Type your domain: `ottstonelandscape.ca`
 3. Click **"Add"**
 4. Vercel will tell you to add DNS records. It will show you something like:
 
