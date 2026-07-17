@@ -2,7 +2,7 @@ export const siteConfig = {
   name:           'OttStone Landscape',
   tagline:        'Engineered for Ottawa. Built to Last Generations.',
   phone:          '(613) 981-8884',
-  email:          'info@ottstonelandscape.ca',
+  email:          'ottstonelandscape@gmail.com',
   address:        'Ottawa, Ontario',
   instagram:      'https://instagram.com/ottstonelandscape',
   facebook:       'https://facebook.com/ottstonelandscape',
