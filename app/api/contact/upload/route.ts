@@ -111,7 +111,7 @@ export async function POST(req: NextRequest) {
       const blobPath = `uploads/${timestamp}_${leadPrefix}_${i + 1}_${sanitized}`
 
       const blob = await put(blobPath, file, {
-        access: 'public',
+        access: 'private',
         contentType: file.type,
       })
 
