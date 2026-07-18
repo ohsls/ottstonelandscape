@@ -27,6 +27,9 @@ export const metadata: Metadata = {
   },
   description: "Ottawa's owner-operated premium hardscape studio. Luxury driveways, patios, and retaining walls engineered for Ottawa's 60+ annual freeze-thaw cycles.",
   keywords: ['interlock driveway Ottawa', 'hardscaping Ottawa', 'paving stones Ottawa', 'retaining wall Ottawa', 'OttStone Landscape'],
+  verification: {
+    google: 'DuC7URUYfxDG55is6N9_6TA4RFgOHrsYWZnC1ZY2wKQ',
+  },
   openGraph: {
     title: 'OttStone Landscape | Premium Hardscaping & Interlock Ottawa',
     description: "Ottawa's owner-operated premium hardscape studio.",
@@ -66,7 +69,6 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
-        <meta name="google-site-verification" content="DuC7URUYfxDG55is6N9_6TA4RFgOHrsYWZnC1ZY2wKQ" />
         <link rel="preconnect" href="https://player.vimeo.com" />
         <link rel="dns-prefetch" href="https://player.vimeo.com" />
       </head>
