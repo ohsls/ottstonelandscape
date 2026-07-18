@@ -110,7 +110,7 @@ export async function POST(req: NextRequest) {
     }
 
     const { error } = await resend.emails.send({
-      from: 'OttStone Landscape <onboarding@resend.dev>',
+      from: 'OttStone Landscape <info@ottstonelandscape.ca>',
       to: ['ottstonelandscape@gmail.com'],
       subject: `New Lead: ${body.name} — ${body.projectType} — ${body.neighbourhood}`,
       html: buildEmailHtml(body),
