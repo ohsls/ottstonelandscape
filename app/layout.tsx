@@ -66,6 +66,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
+        <meta name="google-site-verification" content="DuC7URUYfxDG55is6N9_6TA4RFgOHrsYWZnC1ZY2wKQ" />
         <link rel="preconnect" href="https://player.vimeo.com" />
         <link rel="dns-prefetch" href="https://player.vimeo.com" />
       </head>
